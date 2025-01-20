@@ -12,5 +12,5 @@ interface Book {
   cover: string,
   video: string,
   summary: string,
-  isLoanedBlock: boolean
+  isLoanedBook: boolean
 }
