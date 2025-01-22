@@ -13,11 +13,15 @@ if (!publicKey || !privateKey || !urlEndpoint) {
     }
 
 const imagekit = new ImageKit({
- privateKey: privateKey as string,
- publicKey: publicKey as string,
- urlEndpoint: urlEndpoint as string,
+ privateKey: privateKey, 
+ publicKey: publicKey, 
+ urlEndpoint: urlEndpoint, 
 });
 
 export async function GET() {
-	return NextResponse.json(imagekit.getAuthenticationParameters())
+  console.log("Authentication Parameters:", imagekit.getAuthenticationParameters());
+  return NextResponse.json(imagekit.getAuthenticationParameters());
 }
+
+const params = imagekit.getAuthenticationParameters();
+console.log("ImageKit Auth Params:", params);

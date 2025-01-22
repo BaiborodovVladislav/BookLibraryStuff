@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import React from "react";
+import React, { JSXElementConstructor, ReactElement, ReactNode, ReactPortal, AwaitedReactNode } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   FieldValues,
@@ -25,11 +25,15 @@ import {
 import { Input } from "@/components/ui/input";
 import { FIELD_NAMES, FIELD_TYPES } from "@/constants";
 import ImageUpload from "./ImageUpload";
+import { toast } from '@/hooks/use-toast'
+import { useRouter } from 'next/navigation'
 
 interface Props<T extends FieldValues> {
   schema: ZodType<T>;
   defaultValues: T;
-  onSubmit: (data: T) => Promise<{ success: boolean; Error?: string }>;
+  onSubmit: (data: T) => Promise<{
+    message: string | (string & ReactElement<unknown, string | JSXElementConstructor<any>>) | (string & Iterable<ReactNode>) | (string & ReactPortal) | (string & Promise<AwaitedReactNode>) | undefined, success: boolean; Error?: string 
+}>;
   type: "SIGN_IN" | "SIGN_UP";
 }
 
@@ -39,6 +43,8 @@ const AuthForm = <T extends FieldValues>({
   defaultValues,
   onSubmit,
 }: Props<T>) => {
+
+  const router = useRouter();
   const isSignIn = type === "SIGN_IN";
 
   const form: UseFormReturn<T> = useForm({
@@ -46,7 +52,23 @@ const AuthForm = <T extends FieldValues>({
     defaultValues: defaultValues as DefaultValues<T>,
   });
 
-  const handleSubmit: SubmitHandler<T> = async (data) => {};
+  const handleSubmit: SubmitHandler<T> = async (data) => {
+    const result = await onSubmit(data);
+
+    if (result.success) {
+      toast({
+        title: result.message,
+        description: isSignIn ? 'You have successfully signed in' : 'You have successfully signed up',
+      });
+      } else {
+        toast({
+          title: `Error ${isSignIn ? 'signing in' : 'signing up'}`,
+          description: 'An error occured',
+          variant: "destructive"
+        })
+      }
+      router.push('/')
+    }
 
   return (
     <div className="flex flex-col gap-4">
@@ -105,5 +127,7 @@ const AuthForm = <T extends FieldValues>({
     </div>
   );
 };
+
+
 
 export default AuthForm;

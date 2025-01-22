@@ -9,9 +9,9 @@ import {
   ImageKitContext,
 } from "imagekitio-next";
 import config from "@/lib/config";
-import ImageKit from "imagekit";
+
 import Image from "next/image";
-import { FilePath } from 'tailwindcss/types/config'
+
 import { toast } from '@/hooks/use-toast'
 
 const {
@@ -38,7 +38,7 @@ const authenticator = async () => {
 
     return { token, expire, signature };
   } catch (error: any) {
-    throw new Error(`Authentication request failed: ${error.massage}`);
+    throw new Error(`Authentication request failed: ${error.message}`);
   }
 };
 
