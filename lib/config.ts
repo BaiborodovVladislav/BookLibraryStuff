@@ -8,7 +8,15 @@ const config={
 			privateKey: process.env.IMAGEKIT_PRIVATE_KEY,
 
 		},
-		databaseUrl: process.env.DATABASE_URL
+		databaseUrl: process.env.DATABASE_URL!,
+		upstash:{
+			redisUrl: process.env.UPSTASH_REDIS_URL!,
+			tokenUrl: process.env.UPSTASH_REDIS_TOKEN!,
+			qstashUrl: process.env.QSTASH_URL!,
+			qstashToken: process.env.QSTASH_TOKEN!,
+		}
+		
+
 	}
 }
 

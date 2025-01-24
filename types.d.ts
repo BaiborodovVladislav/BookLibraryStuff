@@ -12,7 +12,9 @@ interface Book {
   cover: string,
   video: string,
   summary: string,
-  isLoanedBook: boolean
+  isLoanedBook?: boolean,
+  total?: string,
+  isLoaned?: boolean,
 }
 
 interface AuthCredentials{

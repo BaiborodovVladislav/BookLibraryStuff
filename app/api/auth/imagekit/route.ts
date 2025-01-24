@@ -19,9 +19,7 @@ const imagekit = new ImageKit({
 });
 
 export async function GET() {
-  console.log("Authentication Parameters:", imagekit.getAuthenticationParameters());
   return NextResponse.json(imagekit.getAuthenticationParameters());
 }
 
-const params = imagekit.getAuthenticationParameters();
-console.log("ImageKit Auth Params:", params);
+
