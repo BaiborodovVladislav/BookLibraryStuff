@@ -22,12 +22,5 @@ export async function GET() {
   // Получаем параметры аутентификации
   const authParams = imagekit.getAuthenticationParameters();
 
-  // Возвращаем ответ с CORS-заголовками
-  return NextResponse.json(authParams, {
-    headers: {
-      "Access-Control-Allow-Origin": "*", // Разрешить запросы с любого источника
-      "Access-Control-Allow-Methods": "GET, POST, OPTIONS", // Разрешенные HTTP-методы
-      "Access-Control-Allow-Headers": "Content-Type, Authorization", // Разрешенные заголовки
-    },
-  });
+
 }
